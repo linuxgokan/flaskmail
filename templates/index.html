@@ -1,0 +1,158 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row mb-4">
+    <!-- İstatistik Kartları -->
+    <div class="col-md-12 mb-4">
+        <div class="row">
+            <div class="col-md-3">
+                <div class="card bg-info">
+                    <div class="card-body">
+                        <h5 class="card-title text-white">Toplam E-posta</h5>
+                        <h2 class="text-white">{{ stats.total_emails }}</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card bg-info">
+                    <div class="card-body">
+                        <h5 class="card-title text-white">Bugün Gelen</h5>
+                        <h2 class="text-white">{{ stats.today_emails }}</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card bg-info">
+                    <div class="card-body">
+                        <h5 class="card-title text-white">Ekli Dosya İçeren</h5>
+                        <h2 class="text-white">{{ stats.emails_with_attachments }}</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card bg-info">
+                    <div class="card-body">
+                        <h5 class="card-title text-white">Son 24 Saat</h5>
+                        <h2 class="text-white">{{ stats.last_24h_emails }}</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mevcut Arama Formu -->
+    <div class="col">
+        <div class="card">
+            <div class="card-body bg-info">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h5 class="card-title text-white">E-posta Arşivi</h5>
+                    <div>
+                        <a href="{{ url_for('download_backup') }}" class="btn btn-info">
+                            <i class="bi bi-download"></i> Veritabanı Yedeği
+                        </a>
+                    </div>
+                </div>
+                <form method="POST" class="row g-3">
+                    {{ form.hidden_tag() }}
+                    <div class="col-md-6">
+                        {{ form.query(class="form-control bg-white text-dark", placeholder="E-posta ara...", style="border-color: #0dcaf0; color: black;") }}
+                    </div>
+                    <div class="col-md-2">
+                        {{ form.start_date(class="form-control bg-white text-dark", type="date", placeholder="ay/gün/yıl", style="border-color: #0dcaf0;") }}
+                    </div>
+                    <div class="col-md-2">
+                        {{ form.end_date(class="form-control bg-white text-dark", type="date", placeholder="ay/gün/yıl", style="border-color: #0dcaf0;") }}
+                    </div>
+                    <div class="col-md-2">
+                        {{ form.submit(class="btn btn-info w-100 text-white") }}
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- E-posta Listesi -->
+<div class="row">
+    <div class="col">
+        <div class="card">
+            <div class="card-body">
+                <form id="emailForm" action="{{ url_for('download_selected_emails') }}" method="POST">
+                    <div class="d-flex justify-content-between align-items-center mb-3 bg-info p-2 rounded">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="selectAll">
+                            <label class="form-check-label text-white" for="selectAll">
+                                Tümünü Seç
+                            </label>
+                        </div>
+                        <button type="submit" class="btn btn-info" id="downloadSelected" disabled>
+                            <i class="bi bi-download"></i> Seçilenleri İndir
+                        </button>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th class="bg-info text-white" style="border-right: 1px solid white;">
+                                        <div class="d-flex align-items-center">
+                                            <input class="form-check-input" type="checkbox" disabled>
+                                        </div>
+                                    </th>
+                                    <th class="bg-info text-white" style="border-right: 1px solid white;">Tarih</th>
+                                    <th class="bg-info text-white" style="border-right: 1px solid white;">Kimden</th>
+                                    <th class="bg-info text-white" style="border-right: 1px solid white;">Konu</th>
+                                    <th class="bg-info text-white">İşlemler</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for email in emails %}
+                                <tr>
+                                    <td>
+                                        <input class="form-check-input email-select" type="checkbox" name="email_ids[]" value="{{ email.id }}">
+                                    </td>
+                                    <td>{{ email.received_date.strftime('%d %B %Y %H:%M')|replace('January', 'Ocak')|replace('February', 'Şubat')|replace('March', 'Mart')|replace('April', 'Nisan')|replace('May', 'Mayıs')|replace('June', 'Haziran')|replace('July', 'Temmuz')|replace('August', 'Ağustos')|replace('September', 'Eylül')|replace('October', 'Ekim')|replace('November', 'Kasım')|replace('December', 'Aralık') }}</td>
+                                    <td>{{ email.sender }}</td>
+                                    <td>{{ email.subject }}</td>
+                                    <td>
+                                        <a href="{{ url_for('view_email', email_id=email.id) }}" class="btn btn-sm btn-info">Görüntüle</a>
+                                        <a href="{{ url_for('download_eml', email_id=email.id) }}" class="btn btn-sm btn-info">EML İndir</a>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const selectAll = document.getElementById('selectAll');
+    const emailCheckboxes = document.querySelectorAll('.email-select');
+    const downloadButton = document.getElementById('downloadSelected');
+
+    function updateDownloadButton() {
+        const checkedBoxes = document.querySelectorAll('.email-select:checked');
+        downloadButton.disabled = checkedBoxes.length === 0;
+    }
+
+    selectAll.addEventListener('change', function() {
+        emailCheckboxes.forEach(checkbox => {
+            checkbox.checked = selectAll.checked;
+        });
+        updateDownloadButton();
+    });
+
+    emailCheckboxes.forEach(checkbox => {
+        checkbox.addEventListener('change', function() {
+            const allChecked = Array.from(emailCheckboxes).every(cb => cb.checked);
+            selectAll.checked = allChecked;
+            updateDownloadButton();
+        });
+    });
+});
+</script>
+{% endblock %}

@@ -1,0 +1,189 @@
+INFO:app:SMTP server started on port 25
+[2025-03-09 05:06:15 +0300] [138088] [INFO] Handling signal: winch
+INFO:app:Received email from backupnobel@hepsibulutta.com to ['arsiv@arsiv.ofisbulutta.tr']
+ERROR:email_processor:Error processing email: Working outside of application context.
+
+This typically means that you attempted to use functionality that needed
+the current application. To solve this, set up an application context
+with app.app_context(). See the documentation for more information.
+ERROR:app:Error processing email: Working outside of application context.
+
+This typically means that you attempted to use functionality that needed
+the current application. To solve this, set up an application context
+with app.app_context(). See the documentation for more information.
+INFO:app:Received email from bounce+a52ec8.d1f966-semih=turendu.com@parasut.com to ['arsiv@arsiv.ofisbulutta.tr']
+ERROR:email_processor:Error processing email: Working outside of application context.
+
+This typically means that you attempted to use functionality that needed
+the current application. To solve this, set up an application context
+with app.app_context(). See the documentation for more information.
+ERROR:app:Error processing email: Working outside of application context.
+
+This typically means that you attempted to use functionality that needed
+the current application. To solve this, set up an application context
+with app.app_context(). See the documentation for more information.
+INFO:app:Received email from backupsemas@hepsibulutta.com to ['arsiv@arsiv.ofisbulutta.tr']
+ERROR:email_processor:Error processing email: Working outside of application context.
+
+This typically means that you attempted to use functionality that needed
+the current application. To solve this, set up an application context
+with app.app_context(). See the documentation for more information.
+ERROR:app:Error processing email: Working outside of application context.
+
+This typically means that you attempted to use functionality that needed
+the current application. To solve this, set up an application context
+with app.app_context(). See the documentation for more information.
+INFO:app:Received email from smtptrap@hepsibulutta.com to ['arsiv@arsiv.ofisbulutta.tr']
+ERROR:email_processor:Error processing email: Working outside of application context.
+
+This typically means that you attempted to use functionality that needed
+the current application. To solve this, set up an application context
+with app.app_context(). See the documentation for more information.
+ERROR:app:Error processing email: Working outside of application context.
+
+This typically means that you attempted to use functionality that needed
+the current application. To solve this, set up an application context
+with app.app_context(). See the documentation for more information.
+INFO:app:Received email from smtptrap@hepsibulutta.com to ['arsiv@arsiv.ofisbulutta.tr']
+ERROR:email_processor:Error processing email: Working outside of application context.
+
+This typically means that you attempted to use functionality that needed
+the current application. To solve this, set up an application context
+with app.app_context(). See the documentation for more information.
+ERROR:app:Error processing email: Working outside of application context.
+
+This typically means that you attempted to use functionality that needed
+the current application. To solve this, set up an application context
+with app.app_context(). See the documentation for more information.
+INFO:app:Received email from admin@hepsibulutta.com to ['arsiv@arsiv.ofisbulutta.tr']
+ERROR:email_processor:Error processing email: Working outside of application context.
+
+This typically means that you attempted to use functionality that needed
+the current application. To solve this, set up an application context
+with app.app_context(). See the documentation for more information.
+ERROR:app:Error processing email: Working outside of application context.
+
+This typically means that you attempted to use functionality that needed
+the current application. To solve this, set up an application context
+with app.app_context(). See the documentation for more information.
+INFO:app:Received email from admin@hepsibulutta.com to ['arsiv@arsiv.ofisbulutta.tr']
+ERROR:email_processor:Error processing email: Working outside of application context.
+
+This typically means that you attempted to use functionality that needed
+the current application. To solve this, set up an application context
+with app.app_context(). See the documentation for more information.
+ERROR:app:Error processing email: Working outside of application context.
+
+This typically means that you attempted to use functionality that needed
+the current application. To solve this, set up an application context
+with app.app_context(). See the documentation for more information.
+INFO:app:Received email from bounce+451a80.d1f966-mumin=turendu.com@parasut.com to ['arsiv@arsiv.ofisbulutta.tr']
+ERROR:email_processor:Error processing email: Working outside of application context.
+
+This typically means that you attempted to use functionality that needed
+the current application. To solve this, set up an application context
+with app.app_context(). See the documentation for more information.
+ERROR:app:Error processing email: Working outside of application context.
+
+This typically means that you attempted to use functionality that needed
+the current application. To solve this, set up an application context
+with app.app_context(). See the documentation for more information.
+INFO:app:Received email from backupatabt@hepsibulutta.com to ['arsiv@arsiv.ofisbulutta.tr']
+ERROR:email_processor:Error processing email: Working outside of application context.
+
+This typically means that you attempted to use functionality that needed
+the current application. To solve this, set up an application context
+with app.app_context(). See the documentation for more information.
+ERROR:app:Error processing email: Working outside of application context.
+
+This typically means that you attempted to use functionality that needed
+the current application. To solve this, set up an application context
+with app.app_context(). See the documentation for more information.
+INFO:app:Received email from backupademtuysuz@hepsibulutta.com to ['arsiv@arsiv.ofisbulutta.tr']
+ERROR:email_processor:Error processing email: Working outside of application context.
+
+This typically means that you attempted to use functionality that needed
+the current application. To solve this, set up an application context
+with app.app_context(). See the documentation for more information.
+ERROR:app:Error processing email: Working outside of application context.
+
+This typically means that you attempted to use functionality that needed
+the current application. To solve this, set up an application context
+with app.app_context(). See the documentation for more information.
+INFO:app:Received email from smtptrap@hepsibulutta.com to ['arsiv@arsiv.ofisbulutta.tr']
+ERROR:email_processor:Error processing email: Working outside of application context.
+
+This typically means that you attempted to use functionality that needed
+the current application. To solve this, set up an application context
+with app.app_context(). See the documentation for more information.
+ERROR:app:Error processing email: Working outside of application context.
+
+This typically means that you attempted to use functionality that needed
+the current application. To solve this, set up an application context
+with app.app_context(). See the documentation for more information.
+INFO:app:Received email from admin@hepsibulutta.com to ['arsiv@arsiv.ofisbulutta.tr']
+ERROR:email_processor:Error processing email: Working outside of application context.
+
+This typically means that you attempted to use functionality that needed
+the current application. To solve this, set up an application context
+with app.app_context(). See the documentation for more information.
+ERROR:app:Error processing email: Working outside of application context.
+
+This typically means that you attempted to use functionality that needed
+the current application. To solve this, set up an application context
+with app.app_context(). See the documentation for more information.
+INFO:app:Received email from smtptrap@hepsibulutta.com to ['arsiv@arsiv.ofisbulutta.tr']
+ERROR:email_processor:Error processing email: Working outside of application context.
+
+This typically means that you attempted to use functionality that needed
+the current application. To solve this, set up an application context
+with app.app_context(). See the documentation for more information.
+ERROR:app:Error processing email: Working outside of application context.
+
+This typically means that you attempted to use functionality that needed
+the current application. To solve this, set up an application context
+with app.app_context(). See the documentation for more information.
+INFO:app:Received email from backupsemas@hepsibulutta.com to ['arsiv@arsiv.ofisbulutta.tr']
+ERROR:email_processor:Error processing email: 'utf-8' codec can't decode byte 0xe2 in position 4530: invalid continuation byte
+ERROR:app:Error processing email: Working outside of application context.
+
+This typically means that you attempted to use functionality that needed
+the current application. To solve this, set up an application context
+with app.app_context(). See the documentation for more information.
+[2025-03-09 05:06:33 +0300] [138088] [INFO] Handling signal: winch
+INFO:app:Received email from trisidurumu@hepsibulutta.com to ['arsiv@arsiv.ofisbulutta.tr']
+ERROR:email_processor:Error processing email: Working outside of application context.
+
+This typically means that you attempted to use functionality that needed
+the current application. To solve this, set up an application context
+with app.app_context(). See the documentation for more information.
+ERROR:app:Error processing email: Working outside of application context.
+
+This typically means that you attempted to use functionality that needed
+the current application. To solve this, set up an application context
+with app.app_context(). See the documentation for more information.
+ERROR:app:Exception on / [POST]
+Traceback (most recent call last):
+  File "/home/ob1/EmailInspector/venv/lib/python3.11/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ob1/EmailInspector/venv/lib/python3.11/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ob1/EmailInspector/venv/lib/python3.11/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ob1/EmailInspector/venv/lib/python3.11/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ob1/EmailInspector/venv/lib/python3.11/site-packages/flask_login/utils.py", line 290, in decorated_view
+    return current_app.ensure_sync(func)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ob1/EmailInspector/routes.py", line 30, in index
+    search_results = search_emails(query, start_date, end_date)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ob1/EmailInspector/search.py", line 13, in search_emails
+    start = datetime.strptime(start_date, "%Y-%m-%d") if start_date else None
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: strptime() argument 1 must be str, not datetime.date
+[2025-03-09 05:06:51 +0300] [138088] [INFO] Handling signal: winch

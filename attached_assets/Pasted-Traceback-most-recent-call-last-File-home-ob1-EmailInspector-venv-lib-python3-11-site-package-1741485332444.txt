@@ -1,0 +1,68 @@
+Traceback (most recent call last):
+  File "/home/ob1/EmailInspector/venv/lib/python3.11/site-packages/sqlalchemy/sql/base.py", line 2178, in _entity_namespace_key
+    return getattr(ns, key)  # type: ignore
+           ^^^^^^^^^^^^^^^^
+AttributeError: type object 'User' has no attribute 'email'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/ob1/EmailInspector/venv/lib/python3.11/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ob1/EmailInspector/venv/lib/python3.11/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ob1/EmailInspector/venv/lib/python3.11/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ob1/EmailInspector/venv/lib/python3.11/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ob1/EmailInspector/routes.py", line 66, in register
+    if User.query.filter_by(email=form.email.data).first():
+       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ob1/EmailInspector/venv/lib/python3.11/site-packages/sqlalchemy/orm/query.py", line 1986, in filter_by
+    clauses = [
+              ^
+  File "/home/ob1/EmailInspector/venv/lib/python3.11/site-packages/sqlalchemy/orm/query.py", line 1987, in <listcomp>
+    _entity_namespace_key(from_entity, key) == value
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ob1/EmailInspector/venv/lib/python3.11/site-packages/sqlalchemy/sql/base.py", line 2180, in _entity_namespace_key
+    raise exc.InvalidRequestError(
+sqlalchemy.exc.InvalidRequestError: Entity namespace for "user" has no property "email"
+ERROR:app:Exception on /register [POST]
+Traceback (most recent call last):
+  File "/home/ob1/EmailInspector/venv/lib/python3.11/site-packages/sqlalchemy/sql/base.py", line 2178, in _entity_namespace_key
+    return getattr(ns, key)  # type: ignore
+           ^^^^^^^^^^^^^^^^
+AttributeError: type object 'User' has no attribute 'email'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/ob1/EmailInspector/venv/lib/python3.11/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ob1/EmailInspector/venv/lib/python3.11/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ob1/EmailInspector/venv/lib/python3.11/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ob1/EmailInspector/venv/lib/python3.11/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ob1/EmailInspector/routes.py", line 66, in register
+    if User.query.filter_by(email=form.email.data).first():
+       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ob1/EmailInspector/venv/lib/python3.11/site-packages/sqlalchemy/orm/query.py", line 1986, in filter_by
+    clauses = [
+              ^
+  File "/home/ob1/EmailInspector/venv/lib/python3.11/site-packages/sqlalchemy/orm/query.py", line 1987, in <listcomp>
+    _entity_namespace_key(from_entity, key) == value
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ob1/EmailInspector/venv/lib/python3.11/site-packages/sqlalchemy/sql/base.py", line 2180, in _entity_namespace_key
+    raise exc.InvalidRequestError(
+sqlalchemy.exc.InvalidRequestError: Entity namespace for "user" has no property "email"
+

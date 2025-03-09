@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <div class="row mb-4">
+        <div class="col">
+            <div class="card">
+                <div class="card-body bg-info">
+                    <h5 class="card-title text-white">Kullanıcı Yönetimi</h5>
+                    <p class="text-white mb-0">
+                        <i class="bi bi-info-circle"></i> Kullanıcılar sadece kendi e-posta adreslerine gelen postaları görebileceklerdir.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mb-4">
+        <div class="col">
+            <div class="card">
+                <div class="card-body">
+                    <h6 class="card-subtitle mb-3 text-info">Yeni Kullanıcı Oluştur</h6>
+                    <form method="POST" action="{{ url_for('admin_create_user') }}" class="mb-4">
+                        {{ form.hidden_tag() }}
+                        <div class="row g-3">
+                            <div class="col-md-3">
+                                {{ form.username(class="form-control", placeholder="Kullanıcı Adı") }}
+                            </div>
+                            <div class="col-md-3">
+                                {{ form.email(class="form-control", placeholder="E-posta") }}
+                                <small class="form-text text-muted">Kullanıcı bu e-postaya gelen postaları görebilecek</small>
+                            </div>
+                            <div class="col-md-3">
+                                {{ form.password(class="form-control", placeholder="Şifre") }}
+                            </div>
+                            <div class="col-md-3">
+                                {{ form.submit(class="btn btn-info w-100") }}
+                            </div>
+                        </div>
+                    </form>
+
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th class="bg-info text-white">Kullanıcı Adı</th>
+                                    <th class="bg-info text-white">E-posta</th>
+                                    <th class="bg-info text-white">Oluşturulma Tarihi</th>
+                                    <th class="bg-info text-white">İşlemler</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for user in users %}
+                                <tr>
+                                    <td>{{ user.username }}</td>
+                                    <td>{{ user.email }}</td>
+                                    <td>{{ user.created_at.strftime('%Y-%m-%d %H:%M') if user.created_at else 'N/A' }}</td>
+                                    <td>
+                                        {% if not user.is_admin %}
+                                        <form method="POST" action="{{ url_for('admin_delete_user', user_id=user.id) }}" style="display: inline;">
+                                            <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Bu kullanıcıyı silmek istediğinize emin misiniz?')">Sil</button>
+                                        </form>
+                                        {% else %}
+                                        <span class="badge bg-info">Admin</span>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

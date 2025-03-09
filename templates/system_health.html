@@ -1,0 +1,179 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body bg-info">
+                <h5 class="card-title text-white">Sağlık İzleyici</h5>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <!-- Sistem Durumu -->
+    <div class="col-md-4 mb-4">
+        <div class="card h-100">
+            <div class="card-body">
+                <h5 class="card-title text-info">CPU Kullanımı</h5>
+                <div class="d-flex justify-content-center">
+                    <canvas id="cpuChart" width="200" height="200"></canvas>
+                </div>
+                <div class="mt-3">
+                    <p class="mb-1">Çekirdek Sayısı: <span class="text-info">{{ health_stats.cpu_cores }}</span></p>
+                    <p class="mb-1">İşletim Sistemi: <span class="text-info">{{ health_stats.os_info }}</span></p>
+                    <p class="mb-0">Çalışma Süresi: <span class="text-info">{{ health_stats.uptime }}</span></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4 mb-4">
+        <div class="card h-100">
+            <div class="card-body">
+                <h5 class="card-title text-info">Bellek Kullanımı</h5>
+                <div class="d-flex justify-content-center">
+                    <canvas id="memoryChart" width="200" height="200"></canvas>
+                </div>
+                <div class="mt-3">
+                    <p class="mb-0">Toplam Bellek: <span class="text-info">{{ health_stats.memory_total }}</span></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4 mb-4">
+        <div class="card h-100">
+            <div class="card-body">
+                <h5 class="card-title text-info">Disk Kullanımı</h5>
+                <div class="d-flex justify-content-center">
+                    <canvas id="diskChart" width="200" height="200"></canvas>
+                </div>
+                <div class="mt-3">
+                    <p class="mb-1">Toplam Alan: <span class="text-info">{{ health_stats.disk_total }}</span></p>
+                    <p class="mb-1">Kullanılan: <span class="text-info">{{ health_stats.disk_used }}</span></p>
+                    <p class="mb-0">Boş Alan: <span class="text-info">{{ health_stats.disk_free }}</span></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- E-posta Sistemi Durumu -->
+<div class="row">
+    <div class="col-12 mb-4">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title text-info">E-posta Sistemi Durumu</h5>
+                <div class="row align-items-center">
+                    <div class="col-md-4">
+                        <div class="text-center mb-3">
+                            <div class="display-4">
+                                {% if health_stats.smtp_status == 'active' %}
+                                <i class="bi bi-check-circle-fill text-success"></i>
+                                {% else %}
+                                <i class="bi bi-x-circle-fill text-danger"></i>
+                                {% endif %}
+                            </div>
+                            <h5 class="mt-2">SMTP Durumu</h5>
+                            <p class="mb-0">
+                                {% if health_stats.smtp_status == 'active' %}
+                                <span class="badge bg-success">Aktif</span>
+                                {% else %}
+                                <span class="badge bg-danger">Pasif</span>
+                                {% endif %}
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="text-center mb-3">
+                            <div class="display-4 text-info">
+                                {{ health_stats.email_processing_rate }}
+                            </div>
+                            <h5 class="mt-2">E-posta/Dakika</h5>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="text-center mb-3">
+                            <div class="display-4">
+                                <i class="bi bi-clock-history text-info"></i>
+                            </div>
+                            <h5 class="mt-2">Son İşlem</h5>
+                            <p class="mb-0">{{ health_stats.last_email_time }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // CPU Chart
+    new Chart(document.getElementById('cpuChart'), {
+        type: 'doughnut',
+        data: {
+            labels: ['Kullanılan', 'Boş'],
+            datasets: [{
+                data: [{{ health_stats.cpu_usage }}, {{ 100 - health_stats.cpu_usage }}],
+                backgroundColor: ['rgba(13, 202, 240, 0.8)', 'rgba(222, 226, 230, 0.8)'],
+                borderWidth: 0
+            }]
+        },
+        options: {
+            cutout: '70%',
+            plugins: {
+                legend: {
+                    display: false
+                }
+            }
+        }
+    });
+
+    // Memory Chart
+    new Chart(document.getElementById('memoryChart'), {
+        type: 'doughnut',
+        data: {
+            labels: ['Kullanılan', 'Boş'],
+            datasets: [{
+                data: [{{ health_stats.memory_usage }}, {{ 100 - health_stats.memory_usage }}],
+                backgroundColor: ['rgba(13, 202, 240, 0.8)', 'rgba(222, 226, 230, 0.8)'],
+                borderWidth: 0
+            }]
+        },
+        options: {
+            cutout: '70%',
+            plugins: {
+                legend: {
+                    display: false
+                }
+            }
+        }
+    });
+
+    // Disk Chart
+    new Chart(document.getElementById('diskChart'), {
+        type: 'doughnut',
+        data: {
+            labels: ['Kullanılan', 'Boş'],
+            datasets: [{
+                data: [{{ health_stats.disk_percent }}, {{ 100 - health_stats.disk_percent }}],
+                backgroundColor: ['rgba(13, 202, 240, 0.8)', 'rgba(222, 226, 230, 0.8)'],
+                borderWidth: 0
+            }]
+        },
+        options: {
+            cutout: '70%',
+            plugins: {
+                legend: {
+                    display: false
+                }
+            }
+        }
+    });
+});
+</script>
+{% endblock %}

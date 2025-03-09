@@ -1,0 +1,289 @@
+venv) root@smtpgw3:/home/ob1/EmailInspector# gunicorn --bind 0.0.0.0:5000 main:app
+[2025-03-09 19:25:50 +0300] [169212] [INFO] Starting gunicorn 23.0.0
+[2025-03-09 19:25:50 +0300] [169212] [INFO] Listening at: http://0.0.0.0:5000 (169212)
+[2025-03-09 19:25:50 +0300] [169212] [INFO] Using worker: sync
+[2025-03-09 19:25:50 +0300] [169213] [INFO] Booting worker with pid: 169213
+INFO:routes:Attempting to create database tables...
+INFO:routes:Database tables created successfully
+INFO:routes:SMTP server thread started
+INFO:routes:SMTP server started on port 25
+[2025-03-09 19:25:53 +0300] [169212] [INFO] Handling signal: winch
+ERROR:app:Exception on / [GET]
+Traceback (most recent call last):
+  File "/home/ob1/EmailInspector/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1964, in _exec_single_context
+    self.dialect.do_execute(
+  File "/home/ob1/EmailInspector/venv/lib/python3.11/site-packages/sqlalchemy/engine/default.py", line 942, in do_execute
+    cursor.execute(statement, parameters)
+psycopg2.errors.UndefinedColumn: column email.attachment_data does not exist
+LINE 2: ...aw_email, email.attachments AS email_attachments, email.atta...
+                                                             ^
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/ob1/EmailInspector/venv/lib/python3.11/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ob1/EmailInspector/venv/lib/python3.11/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ob1/EmailInspector/venv/lib/python3.11/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ob1/EmailInspector/venv/lib/python3.11/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ob1/EmailInspector/venv/lib/python3.11/site-packages/flask_login/utils.py", line 290, in decorated_view
+    return current_app.ensure_sync(func)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ob1/EmailInspector/routes.py", line 79, in index
+    stats = get_email_stats(current_user.email if not current_user.is_admin else None)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ob1/EmailInspector/routes.py", line 35, in get_email_stats
+    total_emails = base_query.count()
+                   ^^^^^^^^^^^^^^^^^^
+  File "/home/ob1/EmailInspector/venv/lib/python3.11/site-packages/sqlalchemy/orm/query.py", line 3142, in count
+    self._legacy_from_self(col).enable_eagerloads(False).scalar()
+  File "/home/ob1/EmailInspector/venv/lib/python3.11/site-packages/sqlalchemy/orm/query.py", line 2831, in scalar
+    ret = self.one()
+          ^^^^^^^^^^
+  File "/home/ob1/EmailInspector/venv/lib/python3.11/site-packages/sqlalchemy/orm/query.py", line 2804, in one
+    return self._iter().one()  # type: ignore
+           ^^^^^^^^^^^^
+  File "/home/ob1/EmailInspector/venv/lib/python3.11/site-packages/sqlalchemy/orm/query.py", line 2853, in _iter
+    result: Union[ScalarResult[_T], Result[_T]] = self.session.execute(
+                                                  ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ob1/EmailInspector/venv/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 2365, in execute
+    return self._execute_internal(
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ob1/EmailInspector/venv/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 2251, in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ob1/EmailInspector/venv/lib/python3.11/site-packages/sqlalchemy/orm/context.py", line 305, in orm_execute_statement
+    result = conn.execute(
+             ^^^^^^^^^^^^^
+  File "/home/ob1/EmailInspector/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1416, in execute
+    return meth(
+           ^^^^^
+  File "/home/ob1/EmailInspector/venv/lib/python3.11/site-packages/sqlalchemy/sql/elements.py", line 516, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ob1/EmailInspector/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1638, in _execute_clauseelement
+    ret = self._execute_context(
+          ^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ob1/EmailInspector/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1843, in _execute_context
+    return self._exec_single_context(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ob1/EmailInspector/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1983, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "/home/ob1/EmailInspector/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 2352, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/home/ob1/EmailInspector/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1964, in _exec_single_context
+    self.dialect.do_execute(
+  File "/home/ob1/EmailInspector/venv/lib/python3.11/site-packages/sqlalchemy/engine/default.py", line 942, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.ProgrammingError: (psycopg2.errors.UndefinedColumn) column email.attachment_data does not exist
+LINE 2: ...aw_email, email.attachments AS email_attachments, email.atta...
+                                                             ^
+
+[SQL: SELECT count(*) AS count_1 
+FROM (SELECT email.id AS email_id, email.message_id AS email_message_id, email.sender AS email_sender, email.recipients AS email_recipients, email.subject AS email_subject, email.body AS email_body, email.received_date AS email_received_date, email.raw_email AS email_raw_email, email.attachments AS email_attachments, email.attachment_data AS email_attachment_data 
+FROM email) AS anon_1]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+ERROR:app:Exception on / [GET]
+Traceback (most recent call last):
+  File "/home/ob1/EmailInspector/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1964, in _exec_single_context
+    self.dialect.do_execute(
+  File "/home/ob1/EmailInspector/venv/lib/python3.11/site-packages/sqlalchemy/engine/default.py", line 942, in do_execute
+    cursor.execute(statement, parameters)
+psycopg2.errors.UndefinedColumn: column email.attachment_data does not exist
+LINE 2: ...aw_email, email.attachments AS email_attachments, email.atta...
+                                                             ^
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/ob1/EmailInspector/venv/lib/python3.11/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ob1/EmailInspector/venv/lib/python3.11/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ob1/EmailInspector/venv/lib/python3.11/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ob1/EmailInspector/venv/lib/python3.11/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ob1/EmailInspector/venv/lib/python3.11/site-packages/flask_login/utils.py", line 290, in decorated_view
+    return current_app.ensure_sync(func)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ob1/EmailInspector/routes.py", line 79, in index
+    stats = get_email_stats(current_user.email if not current_user.is_admin else None)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ob1/EmailInspector/routes.py", line 35, in get_email_stats
+    total_emails = base_query.count()
+                   ^^^^^^^^^^^^^^^^^^
+  File "/home/ob1/EmailInspector/venv/lib/python3.11/site-packages/sqlalchemy/orm/query.py", line 3142, in count
+    self._legacy_from_self(col).enable_eagerloads(False).scalar()
+  File "/home/ob1/EmailInspector/venv/lib/python3.11/site-packages/sqlalchemy/orm/query.py", line 2831, in scalar
+    ret = self.one()
+          ^^^^^^^^^^
+  File "/home/ob1/EmailInspector/venv/lib/python3.11/site-packages/sqlalchemy/orm/query.py", line 2804, in one
+    return self._iter().one()  # type: ignore
+           ^^^^^^^^^^^^
+  File "/home/ob1/EmailInspector/venv/lib/python3.11/site-packages/sqlalchemy/orm/query.py", line 2853, in _iter
+    result: Union[ScalarResult[_T], Result[_T]] = self.session.execute(
+                                                  ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ob1/EmailInspector/venv/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 2365, in execute
+    return self._execute_internal(
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ob1/EmailInspector/venv/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 2251, in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ob1/EmailInspector/venv/lib/python3.11/site-packages/sqlalchemy/orm/context.py", line 305, in orm_execute_statement
+    result = conn.execute(
+             ^^^^^^^^^^^^^
+  File "/home/ob1/EmailInspector/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1416, in execute
+    return meth(
+           ^^^^^
+  File "/home/ob1/EmailInspector/venv/lib/python3.11/site-packages/sqlalchemy/sql/elements.py", line 516, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ob1/EmailInspector/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1638, in _execute_clauseelement
+    ret = self._execute_context(
+          ^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ob1/EmailInspector/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1843, in _execute_context
+    return self._exec_single_context(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ob1/EmailInspector/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1983, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "/home/ob1/EmailInspector/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 2352, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/home/ob1/EmailInspector/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1964, in _exec_single_context
+    self.dialect.do_execute(
+  File "/home/ob1/EmailInspector/venv/lib/python3.11/site-packages/sqlalchemy/engine/default.py", line 942, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.ProgrammingError: (psycopg2.errors.UndefinedColumn) column email.attachment_data does not exist
+LINE 2: ...aw_email, email.attachments AS email_attachments, email.atta...
+                                                             ^
+
+[SQL: SELECT count(*) AS count_1 
+FROM (SELECT email.id AS email_id, email.message_id AS email_message_id, email.sender AS email_sender, email.recipients AS email_recipients, email.subject AS email_subject, email.body AS email_body, email.received_date AS email_received_date, email.raw_email AS email_raw_email, email.attachments AS email_attachments, email.attachment_data AS email_attachment_data 
+FROM email) AS anon_1]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+INFO:routes:Received email from trisidurumu@hepsibulutta.com to ['arsiv@arsiv.ofisbulutta.tr']
+ERROR:email_processor:Error processing email: (psycopg2.errors.UndefinedColumn) column "attachment_data" of relation "email" does not exist
+LINE 1: ...ect, body, received_date, raw_email, attachments, attachment...
+                                                             ^
+
+[SQL: INSERT INTO email (message_id, sender, recipients, subject, body, received_date, raw_email, attachments, attachment_data) VALUES (%(message_id)s, %(sender)s, %(recipients)s, %(subject)s, %(body)s, %(received_date)s, %(raw_email)s, %(attachments)s, %(attachment_data)s) RETURNING email.id]
+[parameters: {'message_id': '<20250309162612.18E442577612@mail.hepsibulutta.com>', 'sender': 'trisidurumu@hepsibulutta.com', 'recipients': 'trisidurumu@hepsibulutta.com', 'subject': '⚠️ NVMe Sıcaklık Uyarısı!', 'body': '\n        <html>\n        <body style="font-family: Arial, sans-serif; background-color: #f4f4f4; padding: 20px;">\n            <div style="max-width ... (795 characters truncated) ...    </p>\n                <p style="text-align: center;">Bu bir otomatik uyarıdır.</p>\n            </div>\n        </body>\n        </html>\n        ', 'received_date': datetime.datetime(2025, 3, 9, 19, 26, 16, 631398), 'raw_email': 'Received: from localhost (localhost [127.0.0.1])\n\tby mail.hepsibulutta.com (Postfix) with ESMTP id 8018E2577612;\n\tSun,  9 Mar 2025 19:26:16 +0300 ... (3374 characters truncated) ... 5\nYXLEsWTEsXIuPC9wPgogICAgICAgICAgICA8L2Rpdj4KICAgICAgICA8L2JvZHk+CiAgICAgICAg\nPC9odG1sPgogICAgICAgIA==\n\n--===============6853434988273913590==--', 'attachments': False, 'attachment_data': '[]'}]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+ERROR:routes:Error processing email: (psycopg2.errors.UndefinedColumn) column "attachment_data" of relation "email" does not exist
+LINE 1: ...ect, body, received_date, raw_email, attachments, attachment...
+                                                             ^
+
+[SQL: INSERT INTO email (message_id, sender, recipients, subject, body, received_date, raw_email, attachments, attachment_data) VALUES (%(message_id)s, %(sender)s, %(recipients)s, %(subject)s, %(body)s, %(received_date)s, %(raw_email)s, %(attachments)s, %(attachment_data)s) RETURNING email.id]
+[parameters: {'message_id': '<20250309162612.18E442577612@mail.hepsibulutta.com>', 'sender': 'trisidurumu@hepsibulutta.com', 'recipients': 'trisidurumu@hepsibulutta.com', 'subject': '⚠️ NVMe Sıcaklık Uyarısı!', 'body': '\n        <html>\n        <body style="font-family: Arial, sans-serif; background-color: #f4f4f4; padding: 20px;">\n            <div style="max-width ... (795 characters truncated) ...    </p>\n                <p style="text-align: center;">Bu bir otomatik uyarıdır.</p>\n            </div>\n        </body>\n        </html>\n        ', 'received_date': datetime.datetime(2025, 3, 9, 19, 26, 16, 631398), 'raw_email': 'Received: from localhost (localhost [127.0.0.1])\n\tby mail.hepsibulutta.com (Postfix) with ESMTP id 8018E2577612;\n\tSun,  9 Mar 2025 19:26:16 +0300 ... (3374 characters truncated) ... 5\nYXLEsWTEsXIuPC9wPgogICAgICAgICAgICA8L2Rpdj4KICAgICAgICA8L2JvZHk+CiAgICAgICAg\nPC9odG1sPgogICAgICAgIA==\n\n--===============6853434988273913590==--', 'attachments': False, 'attachment_data': '[]'}]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+INFO:routes:Received email from trisidurumu@hepsibulutta.com to ['arsiv@arsiv.ofisbulutta.tr']
+ERROR:email_processor:Error processing email: (psycopg2.errors.UndefinedColumn) column "attachment_data" of relation "email" does not exist
+LINE 1: ...ect, body, received_date, raw_email, attachments, attachment...
+                                                             ^
+
+[SQL: INSERT INTO email (message_id, sender, recipients, subject, body, received_date, raw_email, attachments, attachment_data) VALUES (%(message_id)s, %(sender)s, %(recipients)s, %(subject)s, %(body)s, %(received_date)s, %(raw_email)s, %(attachments)s, %(attachment_data)s) RETURNING email.id]
+[parameters: {'message_id': '<20250309161801.4D06F2654D80@mail.hepsibulutta.com>', 'sender': 'trisidurumu@hepsibulutta.com', 'recipients': 'trisidurumu@hepsibulutta.com', 'subject': '⚠️ NVMe Sıcaklık Uyarısı!', 'body': '\n        <html>\n        <body style="font-family: Arial, sans-serif; background-color: #f4f4f4; padding: 20px;">\n            <div style="max-width ... (795 characters truncated) ...    </p>\n                <p style="text-align: center;">Bu bir otomatik uyarıdır.</p>\n            </div>\n        </body>\n        </html>\n        ', 'received_date': datetime.datetime(2025, 3, 9, 19, 26, 30, 821743), 'raw_email': 'Received: from localhost (localhost [127.0.0.1])\n\tby mail.hepsibulutta.com (Postfix) with ESMTP id B05A926D67EB;\n\tSun,  9 Mar 2025 19:18:05 +0300 ... (3374 characters truncated) ... 5\nYXLEsWTEsXIuPC9wPgogICAgICAgICAgICA8L2Rpdj4KICAgICAgICA8L2JvZHk+CiAgICAgICAg\nPC9odG1sPgogICAgICAgIA==\n\n--===============0414489243519316043==--', 'attachments': False, 'attachment_data': '[]'}]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+ERROR:routes:Error processing email: (psycopg2.errors.UndefinedColumn) column "attachment_data" of relation "email" does not exist
+LINE 1: ...ect, body, received_date, raw_email, attachments, attachment...
+                                                             ^
+
+[SQL: INSERT INTO email (message_id, sender, recipients, subject, body, received_date, raw_email, attachments, attachment_data) VALUES (%(message_id)s, %(sender)s, %(recipients)s, %(subject)s, %(body)s, %(received_date)s, %(raw_email)s, %(attachments)s, %(attachment_data)s) RETURNING email.id]
+[parameters: {'message_id': '<20250309161801.4D06F2654D80@mail.hepsibulutta.com>', 'sender': 'trisidurumu@hepsibulutta.com', 'recipients': 'trisidurumu@hepsibulutta.com', 'subject': '⚠️ NVMe Sıcaklık Uyarısı!', 'body': '\n        <html>\n        <body style="font-family: Arial, sans-serif; background-color: #f4f4f4; padding: 20px;">\n            <div style="max-width ... (795 characters truncated) ...    </p>\n                <p style="text-align: center;">Bu bir otomatik uyarıdır.</p>\n            </div>\n        </body>\n        </html>\n        ', 'received_date': datetime.datetime(2025, 3, 9, 19, 26, 30, 821743), 'raw_email': 'Received: from localhost (localhost [127.0.0.1])\n\tby mail.hepsibulutta.com (Postfix) with ESMTP id B05A926D67EB;\n\tSun,  9 Mar 2025 19:18:05 +0300 ... (3374 characters truncated) ... 5\nYXLEsWTEsXIuPC9wPgogICAgICAgICAgICA8L2Rpdj4KICAgICAgICA8L2JvZHk+CiAgICAgICAg\nPC9odG1sPgogICAgICAgIA==\n\n--===============0414489243519316043==--', 'attachments': False, 'attachment_data': '[]'}]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+ERROR:app:Exception on / [GET]
+Traceback (most recent call last):
+  File "/home/ob1/EmailInspector/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1964, in _exec_single_context
+    self.dialect.do_execute(
+  File "/home/ob1/EmailInspector/venv/lib/python3.11/site-packages/sqlalchemy/engine/default.py", line 942, in do_execute
+    cursor.execute(statement, parameters)
+psycopg2.errors.UndefinedColumn: column email.attachment_data does not exist
+LINE 2: ...aw_email, email.attachments AS email_attachments, email.atta...
+                                                             ^
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/ob1/EmailInspector/venv/lib/python3.11/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ob1/EmailInspector/venv/lib/python3.11/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ob1/EmailInspector/venv/lib/python3.11/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ob1/EmailInspector/venv/lib/python3.11/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ob1/EmailInspector/venv/lib/python3.11/site-packages/flask_login/utils.py", line 290, in decorated_view
+    return current_app.ensure_sync(func)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ob1/EmailInspector/routes.py", line 79, in index
+    stats = get_email_stats(current_user.email if not current_user.is_admin else None)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ob1/EmailInspector/routes.py", line 35, in get_email_stats
+    total_emails = base_query.count()
+                   ^^^^^^^^^^^^^^^^^^
+  File "/home/ob1/EmailInspector/venv/lib/python3.11/site-packages/sqlalchemy/orm/query.py", line 3142, in count
+    self._legacy_from_self(col).enable_eagerloads(False).scalar()
+  File "/home/ob1/EmailInspector/venv/lib/python3.11/site-packages/sqlalchemy/orm/query.py", line 2831, in scalar
+    ret = self.one()
+          ^^^^^^^^^^
+  File "/home/ob1/EmailInspector/venv/lib/python3.11/site-packages/sqlalchemy/orm/query.py", line 2804, in one
+    return self._iter().one()  # type: ignore
+           ^^^^^^^^^^^^
+  File "/home/ob1/EmailInspector/venv/lib/python3.11/site-packages/sqlalchemy/orm/query.py", line 2853, in _iter
+    result: Union[ScalarResult[_T], Result[_T]] = self.session.execute(
+                                                  ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ob1/EmailInspector/venv/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 2365, in execute
+    return self._execute_internal(
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ob1/EmailInspector/venv/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 2251, in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ob1/EmailInspector/venv/lib/python3.11/site-packages/sqlalchemy/orm/context.py", line 305, in orm_execute_statement
+    result = conn.execute(
+             ^^^^^^^^^^^^^
+  File "/home/ob1/EmailInspector/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1416, in execute
+    return meth(
+           ^^^^^
+  File "/home/ob1/EmailInspector/venv/lib/python3.11/site-packages/sqlalchemy/sql/elements.py", line 516, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ob1/EmailInspector/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1638, in _execute_clauseelement
+    ret = self._execute_context(
+          ^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ob1/EmailInspector/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1843, in _execute_context
+    return self._exec_single_context(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ob1/EmailInspector/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1983, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "/home/ob1/EmailInspector/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 2352, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/home/ob1/EmailInspector/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1964, in _exec_single_context
+    self.dialect.do_execute(
+  File "/home/ob1/EmailInspector/venv/lib/python3.11/site-packages/sqlalchemy/engine/default.py", line 942, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.ProgrammingError: (psycopg2.errors.UndefinedColumn) column email.attachment_data does not exist
+LINE 2: ...aw_email, email.attachments AS email_attachments, email.atta...
+                                                             ^
+
+[SQL: SELECT count(*) AS count_1 
+FROM (SELECT email.id AS email_id, email.message_id AS email_message_id, email.sender AS email_sender, email.recipients AS email_recipients, email.subject AS email_subject, email.body AS email_body, email.received_date AS email_received_date, email.raw_email AS email_raw_email, email.attachments AS email_attachments, email.attachment_data AS email_attachment_data 
+FROM email) AS anon_1]
+(Background on this error at: https://sqlalche.me/e/20/f405)

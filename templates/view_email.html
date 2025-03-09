@@ -1,0 +1,130 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <div class="card">
+        <div class="card-header bg-info">
+            <div class="d-flex justify-content-between align-items-center">
+                <h5 class="card-title text-white mb-0">{{ email.subject }}</h5>
+                <a href="{{ url_for('download_eml', email_id=email.id) }}" class="btn btn-light">
+                    <i class="bi bi-download"></i> EML İndir
+                </a>
+            </div>
+        </div>
+
+        <div class="card-body">
+            <div class="email-metadata mb-4">
+                <div class="row">
+                    <div class="col-md-6">
+                        <p><strong>Kimden:</strong> {{ email.sender }}</p>
+                        <p><strong>Kime:</strong> {{ email.recipients }}</p>
+                        <p><strong>Tarih:</strong> {{ email.received_date.strftime('%d %B %Y %H:%M')|replace('January', 'Ocak')|replace('February', 'Şubat')|replace('March', 'Mart')|replace('April', 'Nisan')|replace('May', 'Mayıs')|replace('June', 'Haziran')|replace('July', 'Temmuz')|replace('August', 'Ağustos')|replace('September', 'Eylül')|replace('October', 'Ekim')|replace('November', 'Kasım')|replace('December', 'Aralık') }}</p>
+                    </div>
+                    <div class="col-md-6 text-md-end">
+                        {% if email.attachments %}
+                        <span class="badge bg-info">
+                            <i class="bi bi-paperclip"></i> Ekli Dosya
+                        </span>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+
+            {% if email.get_attachments() %}
+            <div class="email-attachments mb-4">
+                <div class="card">
+                    <div class="card-header bg-light">
+                        <h6 class="mb-0"><i class="bi bi-paperclip"></i> Ekli Dosyalar</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="list-group">
+                            {% for attachment in email.get_attachments() %}
+                            <a href="{{ url_for('download_attachment', email_id=email.id, filename=attachment.filename) }}" 
+                               class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                                <div>
+                                    <i class="bi bi-file-earmark"></i>
+                                    {{ attachment.filename }}
+                                </div>
+                                <span class="badge bg-info rounded-pill">
+                                    {{ (attachment.size / 1024)|round(1) }} KB
+                                </span>
+                            </a>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+
+            <div class="email-content">
+                <div class="card">
+                    <div class="card-body bg-light">
+                        {% if email.body and email.body.strip() %}
+                            {% if '<html' in email.body.lower() or '<body' in email.body.lower() or '<div' in email.body.lower() %}
+                                <div class="email-html-content text-dark" style="color: #333 !important;">
+                                    {{ email.body|safe }}
+                                </div>
+                            {% else %}
+                                <pre class="email-plain-text text-dark" style="white-space: pre-wrap; font-family: inherit; color: #333 !important;">{{ email.body }}</pre>
+                            {% endif %}
+                        {% else %}
+                            <p class="text-muted">E-posta içeriği boş</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+/* Temel mobil görünüm stilleri */
+.email-html-content {
+    color: #333 !important;
+    font-size: 16px !important;
+    line-height: 1.5 !important;
+    word-wrap: break-word !important;
+}
+.email-html-content * {
+    color: inherit !important;
+    max-width: 100% !important;
+}
+.email-plain-text {
+    color: #333 !important;
+    font-size: 16px !important;
+    line-height: 1.5 !important;
+}
+/* Responsive resimler */
+.email-html-content img {
+    max-width: 100% !important;
+    height: auto !important;
+    display: block;
+    margin: 10px auto;
+}
+/* Tabloları kaydırılabilir yap */
+.email-html-content table {
+    max-width: 100% !important;
+    height: auto !important;
+    display: block;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+/* Mobil için özel düzenlemeler */
+@media (max-width: 768px) {
+    .card-body {
+        padding: 0.75rem !important;
+    }
+    .email-metadata p {
+        margin-bottom: 0.5rem !important;
+        font-size: 14px !important;
+    }
+    .badge {
+        font-size: 12px !important;
+    }
+    .list-group-item {
+        padding: 0.5rem !important;
+        font-size: 14px !important;
+    }
+}
+</style>
+{% endblock %}

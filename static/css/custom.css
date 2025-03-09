@@ -1,0 +1,66 @@
+:root {
+    --ofis-primary: #0066cc;
+    --ofis-secondary: #004999;
+}
+
+.email-body {
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    background-color: var(--bs-dark);
+    padding: 1rem;
+    border-radius: 0.25rem;
+    font-family: monospace;
+}
+
+.email-metadata {
+    background-color: var(--bs-dark);
+    padding: 1rem;
+    border-radius: 0.25rem;
+}
+
+.table {
+    margin-bottom: 0;
+}
+
+.login-logo {
+    max-width: 200px;
+    margin-bottom: 2rem;
+}
+
+.btn-primary {
+    background-color: var(--ofis-primary);
+    border-color: var(--ofis-primary);
+}
+
+.btn-primary:hover {
+    background-color: var(--ofis-secondary);
+    border-color: var(--ofis-secondary);
+}
+
+.navbar {
+    background-color: var(--ofis-primary) !important;
+}
+
+.card {
+    border-color: var(--ofis-primary);
+}
+
+.card-title {
+    color: var(--ofis-primary);
+}
+
+body {
+    background-color: white;
+}
+
+/* Özel mavi arka plan rengi */
+.bg-mailpiler-blue {
+    background-color: #0066cc !important;
+    color: white;
+}
+
+/* Placeholder rengi için özel stil */
+.form-control::placeholder {
+    color: #333 !important;
+    opacity: 0.7;
+}
